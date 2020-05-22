@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+import { createAction } from "../utils";
+
 import { StyleSheet, Text, View, Image, ScrollView, Alert } from "react-native";
 import { Avatar, Card, ListItem, Button, Icon, Header } from "react-native-elements";
 const list = [
@@ -104,13 +107,13 @@ const list = [
   }
 ];
 
+@connect()
 export default class Users extends React.Component {
-    constructor(props){
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
   render() {
-      const { navigation} = this.props;
-      
+    const { navigation } = this.props;
     return (
       <ScrollView>
         {list.map((l, i) => (
@@ -122,7 +125,8 @@ export default class Users extends React.Component {
             bottomDivider
             chevron
             onPress={() => {
-                navigation.navigate('UserDetail')
+              this.props.dispatch(createAction("userModel/setUser")({ user: l }));
+              navigation.navigate("UserDetail");
             }}
           />
         ))}
