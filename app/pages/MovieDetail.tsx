@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { View, Image, StyleSheet, ScrollView, Alert } from "react-native";
-import { Avatar, Card, ListItem, Button, Icon, Input, PricingCard, Text } from "react-native-elements";
+import { View, StyleSheet, ScrollView, Alert, ActivityIndicator } from "react-native";
+import { Image, Avatar, Card, ListItem, Button, Icon, Input, PricingCard, Text, Header } from "react-native-elements";
 
 @connect(({ movieModel }) => ({ movieModel }))
 export default class MovieModel extends React.Component<Props> {
@@ -10,18 +10,16 @@ export default class MovieModel extends React.Component<Props> {
 
     return (
       <ScrollView style={styles.container}>
+        <Header
+          placement="left"
+          leftComponent={{ icon: "menu", color: "#fff" }}
+          centerComponent={{ text: "电影详情", style: { color: "#fff", fontWeight: "bold", fontSize: 16 } }}
+          rightComponent={{ icon: "home", color: "#fff" }}
+        />
         {movieModel.movie ? (
-          <Card title="电影详情" containerStyle={{ padding: 0 }} titleStyle={{ backgroundColor: "#2089dc", color: "#fff", padding: 20 }}>
+          <Card containerStyle={{ padding: 0 }} titleStyle={{ backgroundColor: "#2089dc", color: "#fff", padding: 20 }}>
             <View style={styles.user}>
-              <Avatar
-                rounded
-                source={{
-                  uri: movieModel.movie.posters.thumbnail
-                }}
-                width={200}
-                height={200}
-                style={styles.image}
-              />
+              <Image source={{ uri: movieModel.movie.posters.thumbnail }} style={styles.image} PlaceholderContent={<ActivityIndicator />} />
               <Text h4 style={styles.title}>
                 {movieModel.movie.title}
               </Text>
@@ -44,9 +42,7 @@ export default class MovieModel extends React.Component<Props> {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30
-  },
+  container: {},
   btn: {
     paddingTop: 20,
     paddingBottom: 20,
@@ -57,7 +53,10 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   image: {
-    paddingTop: 20
+    marginTop: 30,
+    borderRadius: 100,
+    width: 200,
+    height: 200
   },
   name: {},
   title: {

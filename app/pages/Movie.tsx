@@ -2,24 +2,40 @@ import React from "react";
 import { connect } from "react-redux";
 import { createAction } from "../utils";
 
-import { StyleSheet, Text, View, Image, ScrollView, Alert } from "react-native";
+import { StyleSheet, Text, View, Image, ScrollView, Alert, RefreshControl } from "react-native";
 import { Avatar, Card, ListItem, Button, Icon, Header } from "react-native-elements";
 
 @connect(({ movieModel }) => ({ movieModel }))
 export default class Movie extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      refreshing: false
+    };
   }
-  componentDidMount() {
-    this.props.dispatch(createAction("movieModel/setMovies")());
-  }
+
+  _onRefresh = () => {
+    //下拉刷新的代码
+    Alert.alert("refresh");
+  };
   render() {
-    const { navigation, movieModel } = this.props;
+    const { navigation, movies } = this.props;
 
     return (
-      <ScrollView>
-        {movieModel.movies &&
-          movieModel.movies.map((movie, i) => (
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            title={"正在加载"}
+            refreshing={this.state.refreshing}
+            colors={["rgb(255, 176, 0)", "#ffb100"]}
+            onRefresh={() => {
+              this._onRefresh();
+            }}
+          />
+        }
+      >
+        {movies &&
+          movies.map((movie, i) => (
             <ListItem
               key={i}
               leftAvatar={{ source: { uri: movie.posters.thumbnail }, size: "medium" }}
