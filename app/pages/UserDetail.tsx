@@ -5,12 +5,9 @@ import { Avatar, Card, ListItem, Button, Icon, Input, PricingCard, Text } from "
 
 @connect(({ userModel }) => ({ userModel }))
 export default class UserDetail extends React.Component<Props> {
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log("nextProps = ", nextProps);
-  }
   render() {
     const { userModel } = this.props;
-    console.log("userModel.user.avatar_url = ", userModel.user.avatar_url);
+    console.log("userModel.user.avatar_url = ", userModel.user);
 
     return (
       <ScrollView style={styles.container}>

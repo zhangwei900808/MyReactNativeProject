@@ -1,7 +1,8 @@
 import { create } from "dva-core";
+import userModel from "./userModel";
+import movieModel from "./movieModel";
 
-import userModel from "./user";
-const models = [userModel];
+const models = [userModel, movieModel];
 
 const app = create(); // 创建dva实例，可传递配置参数。https://dvajs.com/api/#app-dva-opts
 

@@ -6,9 +6,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import store from "./app/models";
 import UserDetail from "./app/pages/UserDetail";
-import Home from "./Home";
+import MovieDetail from "./app/pages/MovieDetail";
+import Home from "./app/pages/Home";
 
 const Stack = createStackNavigator();
+
 export default function App() {
   return (
     <Provider store={store}>
@@ -36,9 +38,15 @@ export default function App() {
                 title: "用户详情"
               }}
             />
+            <Stack.Screen
+              name="MovieDetail"
+              component={MovieDetail}
+              options={{
+                title: "电影详情"
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
-
         {/* <UserDetail></UserDetail> */}
       </View>
     </Provider>
